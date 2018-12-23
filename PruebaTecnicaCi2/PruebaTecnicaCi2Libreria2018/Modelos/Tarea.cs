@@ -22,5 +22,11 @@ namespace PruebaTecnicaCi2Libreria2018.Modelos
 
         public int IntFkUserId { get; set; }
         public Usuarios ObjUser { get; set; }
+
+        [StringLength(50)]
+        public string Objetivo { get; set; }
+
+        [Range(1, 10)]
+        public int NumeroActividades { get; set; }
     }
 }

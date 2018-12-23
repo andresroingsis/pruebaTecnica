@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using PruebaTecnicaCi2Libreria2018.Modelos;
 
 namespace PruebaTecnicaCi2Libreria2018.Contextos
@@ -21,6 +22,16 @@ namespace PruebaTecnicaCi2Libreria2018.Contextos
         public ContextoDeDatos(DbContextOptions<ContextoDeDatos> opciones) : base(opciones)
         {
 
+        }
+
+        public class ApplicationContextDbFactory : IDesignTimeDbContextFactory<ContextoDeDatos>
+        {
+            ContextoDeDatos IDesignTimeDbContextFactory<ContextoDeDatos>.CreateDbContext(string[] args)
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ContextoDeDatos>();
+                optionsBuilder.UseSqlServer("Server = ABU-OPEDESA\\SQLEXPRESS; Database = TareasCi2; Trusted_Connection = True; MultipleActiveResultSets = true");
+                return new ContextoDeDatos(optionsBuilder.Options);
+            }
         }
 
         #endregion

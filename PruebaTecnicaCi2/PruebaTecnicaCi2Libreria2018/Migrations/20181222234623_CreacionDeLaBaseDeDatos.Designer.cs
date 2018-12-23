@@ -10,14 +10,14 @@ using PruebaTecnicaCi2Libreria2018.Contextos;
 namespace PruebaTecnicaCi2Libreria2018.Migrations
 {
     [DbContext(typeof(ContextoDeDatos))]
-    [Migration("20181221023901_CreacionDeBaseDeDatos")]
-    partial class CreacionDeBaseDeDatos
+    [Migration("20181222234623_CreacionDeLaBaseDeDatos")]
+    partial class CreacionDeLaBaseDeDatos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,7 +44,7 @@ namespace PruebaTecnicaCi2Libreria2018.Migrations
                     b.ToTable("Tareas");
                 });
 
-            modelBuilder.Entity("PruebaTecnicaCi2Libreria2018.Modelos.User", b =>
+            modelBuilder.Entity("PruebaTecnicaCi2Libreria2018.Modelos.Usuarios", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace PruebaTecnicaCi2Libreria2018.Migrations
 
             modelBuilder.Entity("PruebaTecnicaCi2Libreria2018.Modelos.Tarea", b =>
                 {
-                    b.HasOne("PruebaTecnicaCi2Libreria2018.Modelos.User", "ObjUser")
+                    b.HasOne("PruebaTecnicaCi2Libreria2018.Modelos.Usuarios", "ObjUser")
                         .WithMany("ColTarea")
                         .HasForeignKey("IntFkUserId")
                         .OnDelete(DeleteBehavior.Restrict);

@@ -143,7 +143,7 @@ namespace PruebaTecnicaCi2Libreria2018.Repositorio
 
                         if (objTareaABorrar != null)
                         {
-                            contexto.Tareas.Remove(objTareaABorrar);
+                            contexto.Remove(objTareaABorrar);
                             await contexto.SaveChangesAsync();
                         }
                     }

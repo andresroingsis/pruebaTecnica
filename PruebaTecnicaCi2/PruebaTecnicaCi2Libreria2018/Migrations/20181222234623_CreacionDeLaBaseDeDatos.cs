@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PruebaTecnicaCi2Libreria2018.Migrations
 {
-    public partial class CreacionDeBaseDeDatos : Migration
+    public partial class CreacionDeLaBaseDeDatos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
