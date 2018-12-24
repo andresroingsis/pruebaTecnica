@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LibreriaAngular.Modelos;
+using LibreriaAngular.Repositorio.Interfaces;
+using LibreriaAngular.Utilidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PruebaTecnicaCi2.Model;
-using PruebaTecnicaCi2.Service;
-using PruebaTecnicaCi2Libreria2018.Modelos;
-using PruebaTecnicaCi2Libreria2018.Repositorio.Interfaces;
-using PruebaTecnicaCi2Libreria2018.Utilidades;
+using ProyectoPruebaAngular.Model;
+using ProyectoPruebaAngular.Service;
 
-namespace PruebaTecnicaCi2.Controllers
+namespace ProyectoPruebaAngular.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -40,13 +40,13 @@ namespace PruebaTecnicaCi2.Controllers
         /// <param name="intTodas">ID del usuario (autor); 0 en caso de listar las tareas de todos los usuarios</param>
         /// <param name="strTodasPorEstado">tipo de filtro para estado; 1 terminada, 2 NO terminada, default todas las tareas</param>
         /// <returns>Listado de tareas con los filtros deseados</returns>
-        [HttpGet("consultar/{todasLasTareas}/{consultarPorEstado}")]
-        public async Task<ActionResult<IEnumerable<Tarea>>> Consultar(int todasLasTareas, string consultarPorEstado)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Tarea>>> Consultar()
         {
-            return await _ITareaRepositorio.ObtenerListadodeTareas(todasLasTareas, consultarPorEstado);
+            return await _ITareaRepositorio.ObtenerListadodeTareas();
         }
 
-        [HttpPost("crear")]
+        [HttpPost("{modeloDeTarea}")]
         public async Task<ActionResult<Tarea>> Crear([FromBody] TareaModel modeloDeTarea)
         {
             try
@@ -58,13 +58,13 @@ namespace PruebaTecnicaCi2.Controllers
 
                 return BadRequest(ModelState);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
-        [HttpPut("editar")]
+        [HttpPost("{strTareaId}")]
         public async Task<ActionResult<Tarea>> Actualizar([FromBody] TareaModelActualizar modeloDeTarea, string strTareaId)
         {
             try
@@ -87,10 +87,10 @@ namespace PruebaTecnicaCi2.Controllers
             }
         }
 
-        [HttpDelete("borrar/{id}")]
-        public async Task Borrar(string id)
+        [HttpPost("{strTareaId}")]
+        public async Task Borrar(string strTareaId)
         {
-            await _ITareaRepositorio.BorrarTarea(id);
+            await _ITareaRepositorio.BorrarTarea(strTareaId);
         }
 
         private Tarea ObtenerTareaDominio(TareaModel modelo)
@@ -101,7 +101,7 @@ namespace PruebaTecnicaCi2.Controllers
                 DatFechaCreacion = DateTime.Now,
                 DatFechaVencimineto = modelo.FechaVencimiento,
                 GuTareaId = Guid.NewGuid(),
-                IntFkUserId = 1,
+                IntFkUserId = modelo.UsuarioId,
                 StrDescripcion = modelo.Descripcion
             };
         }

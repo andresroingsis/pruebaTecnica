@@ -1,0 +1,19 @@
+<h1>Hey men!</h1>
+<p>Estas en tareas component:</p>
+
+<p *ngIf="!(tareas && tareas.length)">No existen tareas...</p>
+
+<table class="table" *ngIf="tareas && tareas.length">
+  <thead>
+    <tr>
+      <th>Descripción</th>
+      <th>Fecha Vencimiento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tarea of tareas">
+      <td>{{ tarea.descripcion }}</td>
+      <td>{{ tarea.fechaVencimiento }}</td>
+    </tr>
+  </tbody>
+</table>
